@@ -29,6 +29,7 @@ $router->post('/posts/:id', function ($id) {
 });
 $router->post('/add-user', 'UserController#add');
 $router->post('/connexion', 'AuthenticationController#logIn');
+$router->post('/contact', 'ContactController#sendContactForm');
 
 //? route protégées
 $router->get('/deconnexion', 'AuthenticationController#logOut', null, true, 'subscriber');

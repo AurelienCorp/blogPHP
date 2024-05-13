@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <header>
   <div class="imgAndText">
-    <img
-      src="/blogphp/src/Ressources/logomini.png"
-      alt=""
-      class="welcomeLogoSmall"
-    />
+    <img src="/blogphp/src/Ressources/logomini.png" alt="" class="welcomeLogoSmall" />
     <p class="name">Bienvenue dans la Rubrik à Brak, blog en php natif par Aurélien Demblans</p>
     <hr />
     <p class="catchPhrase">
@@ -15,18 +11,61 @@
   </div>
 </header>
 <div class="buttons">
-  <button
-    type="button"
-    class="btn btn-outline-primary"
-  >
-  <i class="fa-solid fa-envelope fa-lg"></i>
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contactModal">
+    <i class="fa-solid fa-envelope fa-lg"></i>
     Me contacter
   </button>
-  <button
-    type="button"
-    class="btn btn-outline-primary"
-  >
-  <i class="fa-solid fa-file-import fa-lg"></i>
+  <button type="button" class="btn btn-outline-primary">
+    <i class="fa-solid fa-file-import fa-lg"></i>
     CV format PDF
   </button>
+
+  <?php if (isset($_SESSION['user'])) {
+  	$userFirstName = $_SESSION['user']->getFirstname();
+  	$userLastName  = $_SESSION['user']->getLastName();
+  	$userEmail     = $_SESSION['user']->getEmail();
+  } ?>
+
+  <div class="modal fade" id="contactModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Formulaire de contact</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="text-start needs-validation" action="/blogphp/contact" method="POST">
+            <input type="hidden" name="token"
+              value="<?= $_SESSION['token']?>" />
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="recipient-firstName" class="col-form-label">Prénom</label>
+                <input type="text" class="form-control" id="recipient-firstName" name="recipient-firstName"
+                  value="<?php echo $userFirstName ?? ''; ?>">
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="recipient-lastName" class="col-form-label">Nom</label>
+                <input type="text" class="form-control" id="recipient-lastName" name="recipient-lastName"
+                  value="<?php echo $userLastName ?? ''; ?>">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-email" class="col-form-label" type="email">Votre adresse email</label>
+              <input type="email" class="form-control" id="recipient-email" name="recipient-email"
+                value="<?php echo $userEmail ?? ''; ?>">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea class="form-control" id="message-text" style="height: 100px" name="message-text"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
