@@ -49,21 +49,41 @@
                 <input type="text" class="form-control" id="recipient-firstName" name="recipient-firstName"
                   value="<?php echo $userFirstName ?? ''; ?>">
               </div>
+              <?php if (isset($_SESSION['contact_error']) && in_array('recipient-firstName', $_SESSION['contact_error'])) {
+              	echo '<div class="text-danger">
+              <small>Prénom invalide ou manquant</small>
+            </div>';
+              }?>
               <div class="mb-3 col-md-6">
                 <label for="recipient-lastName" class="col-form-label">Nom</label>
                 <input type="text" class="form-control" id="recipient-lastName" name="recipient-lastName"
                   value="<?php echo $userLastName ?? ''; ?>">
               </div>
+              <?php if (isset($_SESSION['contact_error']) && in_array('recipient-lastName', $_SESSION['contact_error'])) {
+              	echo '<div class="text-danger">
+              <small>nom invalide ou manquant</small>
+            </div>';
+              }?>
             </div>
             <div class="mb-3">
               <label for="recipient-email" class="col-form-label" type="email">Votre adresse email</label>
               <input type="email" class="form-control" id="recipient-email" name="recipient-email"
                 value="<?php echo $userEmail ?? ''; ?>">
             </div>
+            <?php if (isset($_SESSION['contact_error']) && in_array('recipient-email', $_SESSION['contact_error'])) {
+            	echo '<div class="text-danger">
+              <small>email invalide ou manquant</small>
+            </div>';
+            }?>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Message:</label>
               <textarea class="form-control" id="message-text" style="height: 100px" name="message-text"></textarea>
             </div>
+            <?php if (isset($_SESSION['contact_error']) && in_array('message-text', $_SESSION['contact_error'])) {
+            	echo '<div class="text-danger">
+              <small>message invalide ou manquant</small>
+            </div>';
+            }?>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -74,3 +94,17 @@
     </div>
   </div>
 </div>
+<script>
+  const formError =
+    <?php echo json_encode(isset($_SESSION['contact_error']), JSON_HEX_TAG) ?>
+    ?
+    true : false;
+
+  if (formError) {
+    const modalToggle = new bootstrap.Modal(document.getElementById('contactModal'), {
+      keyboard: false
+    });
+    modalToggle.show();
+    <?php unset($_SESSION['contact_error']) ?>
+  }
+</script>

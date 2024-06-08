@@ -20,7 +20,7 @@ $router->get('/article/:id', 'FrontOffice#PostController#showOnePost');
 $router->get('/articles/tous-les-articles', 'FrontOffice#PostController#showAllPosts');
 $router->get('/articles/categorie-:id', 'FrontOffice#PostController#showAllPostsByCategory');
 $router->get('/posts/:id', 'FrontOffice#HomePageController#index');
-$router->post('/contact', 'ContactController#sendContactForm');
+$router->post('/contact', 'FrontOffice#ContactController#sendContactForm');
 $router->post('/add-user', 'FrontOffice#UserController#add');
 $router->post('/connexion', 'FrontOffice#AuthenticationController#logIn');
 $router->get('/deconnexion', 'FrontOffice#AuthenticationController#logOut');
