@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Entity\CommentEntity;
 use App\Entity\EntityManager;
 use App\Repository\CommentsRepository;
 use Exception;
 
-class CommentController extends AbstractController
+class CommentController extends FrontOfficeController
 {
 	private readonly CommentsRepository $commentRepository;
 	private readonly EntityManager $entityManager;
@@ -35,6 +35,10 @@ class CommentController extends AbstractController
 			$newComment->setUserId($user->getId());
 			$newComment->setPostId((int) $_POST['post_id']);
 			$newComment->setContent($comment);
+		} else {
+			$_SESSION['empty_comment'] = true;
+			header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
+			exit;
 		}
 
 		$em = new EntityManager();
@@ -50,7 +54,6 @@ class CommentController extends AbstractController
 	public function removeComment(int $commentId)
 	{
 		$comment = $this->commentRepository->find($commentId);
-		var_dump($comment);
 
 		$this->entityManager->removeFromDatabase($comment);
 		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);

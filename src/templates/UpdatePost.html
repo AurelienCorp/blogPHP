@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/blogphp/src/templates/style/createPost.css" />
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.1/classic/ckeditor.js"></script>
+<div class="container-fluid create_article">
+<?php if (isset($_SESSION['patchPost_succes']) && $_SESSION['patchPost_succes'] === true) { ?>
+  <p class="text-center m-2" style="background-color: greenyellow;">Article modifié avec succés</p>
+  <?php } ?>
+
+
+    <h2 class="text-center mt-3">Modifier un article</h2>
+    <form class="text-start needs-validation" action="/blogphp/administration/modifier-article" method="POST">
+        <input type="hidden" name="token"
+            value="<?= $_SESSION['token']?>" />
+        <input type="hidden" name="postId"
+            value="<?= $postId?>" />
+        <input type="hidden" name="user"
+            value="<?= $_SESSION['user']->getId()?>" />
+        <div class="row g-3">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Title" aria-label="Title" name="title" value="<?php if (isset($_SESSION['addArticle_error']['title'])) {
+                	echo $_SESSION['addArticle_error']['title'];
+                } else {
+                	echo $post->getTitle();
+                }?>" />
+                <?php if (isset($_SESSION['addArticle_error']) && in_array('title', $_SESSION['addArticle_error'])) {
+                	echo '<div class="text-danger">
+              <small>titre manquant</small>
+            </div>';
+                }?>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Chapo" aria-label="Chapo" name="chapo" value="<?php if (isset($_SESSION['addArticle_error']['chapo'])) {
+                	echo $_SESSION['addArticle_error']['chapo'];
+                } else {
+                	echo $post->getChapo();
+                }?>" />
+                <?php if (isset($_SESSION['addArticle_error']) && in_array('chapo', $_SESSION['addArticle_error'])) {
+                	echo '<div class="text-danger">
+              <small>chapo manquant</small>
+            </div>';
+                }?>
+            </div>
+            <select class="form-select mb-3" aria-label="Default select example" name="category">
+                <option value="" selected>Choisissez une catégorie</option>
+                <?php foreach ($categories as $key => $category) {?>
+                <option value="<?= $category->getId() ?>" <?php if ($post->getCategoryId() === $category->getId()) {
+                	echo 'selected';
+                } ?>>
+                    <?= $category->getName(); ?>
+                </option>
+                <?php } ?>
+            </select>
+            <?php if (isset($_SESSION['addArticle_error']) && in_array('category', $_SESSION['addArticle_error'])) {
+            	echo '<div class="text-danger">
+              <small>categorie manquante</small>
+            </div>';
+            }?>
+        </div>
+        <?php if (isset($_SESSION['addArticle_error']) && in_array('category', $_SESSION['addArticle_error'])) {
+        	echo '<div class="text-danger">
+              <small>Oups vous n\'avez pas mis de contenu dans l\'article</small>
+            </div>';
+        }?>
+        <textarea name="content" id="editor"><?php echo $post->getContent(); ?></textarea>
+        <button type="submit" class="btn btn-primary">
+            Valider l'article
+        </button>
+    </form>
+</div>
+<script>
+    ClassicEditor.create(document.querySelector('#editor')).catch((error) => {
+        console.error(error);
+    });
+    <?php unset($_SESSION['addArticle_error']) ?>
+    <?php unset($_SESSION['patchPost_succes']) ?>
+</script>

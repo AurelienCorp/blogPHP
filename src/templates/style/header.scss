@@ -25,6 +25,32 @@ header {
 
 }
 
+.social-media {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 12px 12px 12px;
+
+    a {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 38.67px;
+        text-decoration: none !important;
+        font-size: 1rem;
+        font-weight: 400;
+        color: #23283b;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: #4c5781;
+            border-color: whitesmoke;
+            color: whitesmoke;
+        }
+
+    }
+}
+
 .buttons {
     display: flex;
     justify-content: space-evenly;
@@ -37,6 +63,11 @@ header {
         &:hover {
             background-color: #4c5781;
             border-color: whitesmoke;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
     }
 }

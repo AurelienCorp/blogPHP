@@ -13,9 +13,8 @@
     </p>
     <div class="main-content">
       <div class="img-and-text">
-        <img src="/blogphp/src/Ressources/logo.png" class="article-img" alt="imageArticle" />
         <p class="article-text">
-          <?= htmlspecialchars($post->getContent()); ?>
+          <?= $post->getContent(); ?>
         </p>
       </div>
     </div>
@@ -23,6 +22,11 @@
 	  if (isset($_SESSION['comment_added']) && $_SESSION['comment_added'] === true) { ?>
     <div class="comment_added"> commentaire envoyé, en attente de validation</div>
     <?php	unset($_SESSION['comment_added']);
+	  } ?>
+    <?php
+	  if (isset($_SESSION['empty_comment']) && $_SESSION['empty_comment'] === true) { ?>
+    <div class="empty_comment"> vous avez essayer d'envoyer un commentaire vide</div>
+    <?php	unset($_SESSION['empty_comment']);
 	  } ?>
     <?php if (!empty($comments)) { ?>
     <div class="comments">

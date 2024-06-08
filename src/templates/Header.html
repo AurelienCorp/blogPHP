@@ -10,14 +10,19 @@
     </p>
   </div>
 </header>
+<div class="social-media">
+  <a href="https://github.com/AurelienDemblans"><i class="fa-brands fa-linkedin fa-lg"></i>mon Linkedin</a>
+  <a href="https://www.linkedin.com/in/aur%C3%A9lien-demblans-676a93246/"><i class="fa-brands fa-github fa-lg"></i>mon
+    Github</a>
+</div>
 <div class="buttons">
   <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contactModal">
     <i class="fa-solid fa-envelope fa-lg"></i>
     Me contacter
   </button>
-  <button type="button" class="btn btn-outline-primary">
+  <button class="btn btn-outline-primary">
     <i class="fa-solid fa-file-import fa-lg"></i>
-    CV format PDF
+    <a href="/blogphp/src/Ressources/CV_Aurelien.pdf" download>CV format PDF</a>
   </button>
 
   <?php if (isset($_SESSION['user'])) {

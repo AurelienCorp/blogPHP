@@ -1,0 +1,10 @@
+.create_article {
+  border: 1px solid rgb(48, 145, 201);
+  border-radius: 20px;
+  margin: 1em;
+  padding: 1em;
+  width: calc(100% - 3em) !important;
+}
+.create_article form .ck-editor__editable_inline {
+  min-height: calc(100vh - 250px);
+}/*# sourceMappingURL=createPost.css.map */

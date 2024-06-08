@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<h4 class="text-center h4">Voici les derniers articles paru sur notre blog</h4>
+<h4 class="text-center h4">Voici les derniers articles parus sur notre blog</h4>
+<?php if (count($posts) === 0) { ?>
+<div class="text-center" style="margin: 2em;">Il n'y a aucun article pour le moment</div>
+<?php } ?>
 <div class="cards-wrapper">
   <div class="card-group row row-cols-1 row-cols-sm-2 row-cols-md-3 article-cards">
     <?php foreach ($posts as $post) { ?>
@@ -12,18 +15,16 @@
           le :
           <?= htmlspecialchars($post->getCreatedAt()); ?>
         </div>
-        <div class="img-and-button">
-          <img src="/blogphp/src/Ressources/logo.png" class="card-img-top" alt="imageArticle" />
-          <a href="/blogphp/article/<?= $post->getId() ?>"><button
-              class="btn btn-primary">consulter</button></a>
-        </div>
+        <a class="go-to-post"
+          href="/blogphp/article/<?= $post->getId() ?>"><button
+            class="btn btn-primary">consulter</button></a>
         <div class="card-body">
           <h5 class="card-title">
             <?= htmlspecialchars($post->getTitle()); ?>
           </h5>
-          <p class="card-text">
-            <?= htmlspecialchars($post->getContent()); ?>
-          </p>
+          <div class="card-text">
+            <?= $post->getContent(); ?>
+          </div>
         </div>
         <div class="card-footer">
           Catégorie :

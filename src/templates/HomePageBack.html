@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/blogphp/src/templates/style/homePageBack.css" />
+
+<div class="home_page_back container-fluid">
+  <?php if (isset($_SESSION['addArticle_succes']) && $_SESSION['addArticle_succes'] === true) { ?>
+  <p class="text-center m-2" style="background-color: greenyellow">
+    Article ajouté avec succés
+  </p>
+  <?php } ?>
+  <h1 class="text-center m-3">Bienvenue dans l'administration du site</h1>
+  <h4 class="text-center">sur cette page vous pouvez gérer les commentaires en attentes de validation et accéder aux
+    pages de gestion des articles</h4>
+  <div class="comment-and-post-management col-sm-12 col-lg-11">
+    <div>
+      <div class="post-management">
+        <a class="dropdown-item" href="/blogphp/administration/creer-article">Créer un article</a>
+        <a class="dropdown-item" href="/blogphp/administration/liste-article">Modifier un articles</a>
+      </div>
+      <h3 class="text-center mt-4">Gestion des commentaires</h3>
+      <?php if (count($pendingComments) === 0) { ?>
+      <div class="text-center"> Aucun commentaire en attente de validation</div>
+      <?php } ?>
+      <?php foreach ($pendingComments as $comment) { ?>
+      <div class="comment-wrapper mb-3">
+        <div class="comment-data">
+          <div class="comment-post"><span>Article</span> :
+            <?= htmlspecialchars($commentUserNames['postTitle'][$comment->getPostId()]); ?>
+          </div>
+          <div class="comment-author"><span>Auteur</span> :
+            <?= htmlspecialchars($commentUserNames['userName'][$comment->getUserId()]); ?>
+          </div>
+          <div class="comment-content"><span> Contenu</span> :
+            <?= htmlspecialchars($comment->getContent()); ?>
+          </div>
+          <div class="comment-date"><span>Date</span> :
+            <?= htmlspecialchars($comment->getCreatedAt()); ?>
+          </div>
+        </div>
+        <div class="comment-validation col-12 col-md-3">
+          <a class="btn valid-comment"
+            href="/blogphp/administration/valider-commentaire/<?php echo $comment->getId(); ?>"
+            title="valider le commentaire"><i class="fa-solid fa-check fa-lg"></i></a>
+          <a class="btn reject-comment"
+            href="/blogphp/administration/rejeter-commentaire/<?php echo $comment->getId(); ?>"
+            title="supprimer le commentaire"><i class="fa-solid fa-trash-can fa-lg"></i></a>
+        </div>
+      </div>
+      <?php } ?>
+    </div>
+    <?php unset($_SESSION['addArticle_succes']) ?>
+  </div>

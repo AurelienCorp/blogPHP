@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<link
+  rel="stylesheet"
+  href="/blogphp/src/templates/style/footer.css"
+/>
+<footer
+  class="footer text-center p-1"
+  style="background-color: white"
+>
+  <?php if (isset($from) && $from === 'backOffice') { ?>
+  <a href="/blogphp">Retour au site</a>
+  <?php } else { ?>
+  <a href="/blogphp/administration">Accéder à l'administration</a>
+  <?php }  ?>
+</footer>

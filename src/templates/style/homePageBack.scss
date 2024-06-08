@@ -1,0 +1,82 @@
+.home_page_back {
+
+
+    .comment-and-post-management {
+        margin: 10px;
+
+        .post-management {
+            display: flex;
+            justify-content: space-evenly;
+            text-align: center;
+
+            a {
+                width: fit-content;
+                padding: 10px;
+                border: 1px solid black;
+                border-radius: 10px;
+
+                &:hover {
+                    background-color: #4c5781;
+                    border-color: whitesmoke;
+                    color: whitesmoke;
+                }
+            }
+        }
+
+        .comment-wrapper {
+            display: flex;
+            gap: 10px;
+            margin: 10px;
+            border: 1px solid;
+            padding: 10px;
+
+
+
+            .comment-data {
+                flex-grow: 1;
+
+                span {
+                    font-weight: bold;
+                }
+            }
+
+            .comment-validation {
+                border-left: 1px solid;
+                display: flex;
+
+                a {
+                    width: 50%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &:hover {
+                        background-color: #4c5781;
+                        border-color: whitesmoke;
+                        color: whitesmoke;
+                    }
+                }
+
+                .valid-comment {
+                    color: green;
+                }
+
+                .reject-comment {
+                    color: rgb(228, 72, 72);
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .comment-wrapper {
+            flex-direction: column;
+
+            .comment-validation {
+                height: 50px;
+                border-left: none !important;
+            }
+        }
+    }
+}

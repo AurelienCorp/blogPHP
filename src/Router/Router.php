@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Router;
 
+use App\Constants;
+
 class Router
 {
 	private string $url;
@@ -17,12 +19,12 @@ class Router
 		$this->method = $_SERVER['REQUEST_METHOD'];
 	}
 
-	public function get(string $path, $callable, $name = null, $protected = false, $role = null)
+	public function get(string $path, $callable, $name = null, $protected = false, $role = Constants::SUPERADMIN)
 	{
 		return $this->add($path, $callable, $name, 'GET', $protected, $role);
 	}
 
-	public function post(string $path, $callable, $name = null, $protected = false, $role = null)
+	public function post(string $path, $callable, $name = null, $protected = false, $role = Constants::SUPERADMIN)
 	{
 		return $this->add($path, $callable, $name, 'POST', $protected, $role);
 	}

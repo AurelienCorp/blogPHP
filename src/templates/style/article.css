@@ -36,6 +36,10 @@ main .article .comment_added {
   text-align: center;
   background-color: #51e790;
 }
+main .article .empty_comment {
+  text-align: center;
+  background-color: #c84141;
+}
 main .article .comments {
   min-width: 30%;
   display: flex;

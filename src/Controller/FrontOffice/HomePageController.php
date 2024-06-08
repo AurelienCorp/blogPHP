@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
 use App\Repository\PostRepository;
 
-class HomePageController extends AbstractController
+class HomePageController extends FrontOfficeController
 {
 	private readonly PostRepository $postRepository;
 
@@ -25,6 +25,6 @@ class HomePageController extends AbstractController
 		require_once 'src/Templates/HomeContent.html';
 		$content = ob_get_clean();
 
-		$this->renderPage($content);
+		$this->renderPage($content, 'RBAB Accueil');
 	}
 }

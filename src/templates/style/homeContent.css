@@ -8,24 +8,15 @@ h4 {
   justify-content: center;
 }
 .cards-wrapper .article-cards {
+  width: 90%;
   max-width: 90%;
 }
 .cards-wrapper .article-cards .col {
   margin-top: 6px;
   margin-bottom: 6px;
 }
-.cards-wrapper .article-cards .col .card .img-and-button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-.cards-wrapper .article-cards .col .card .img-and-button a {
-  position: absolute;
-  bottom: 1em;
-}
-.cards-wrapper .article-cards .col .card .img-and-button img {
-  max-width: 350px;
-  height: auto;
+.cards-wrapper .article-cards .col .card .go-to-post {
+  margin: 1em;
 }
 .cards-wrapper .article-cards .col .card .card-text {
   display: -webkit-box;

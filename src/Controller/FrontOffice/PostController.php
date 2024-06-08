@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\FrontOffice;
 
+use App\Repository\CategoryRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 
-class PostController extends AbstractController
+class PostController extends FrontOfficeController
 {
 	private readonly PostRepository $postRepository;
 	private readonly CommentsRepository $commentRepository;
@@ -37,7 +38,8 @@ class PostController extends AbstractController
 		require_once 'src/Templates/Article.html';
 		$content = ob_get_clean();
 
-		$this->renderPage($content);
+		$title = 'RBAB Article ' . substr($post->getTitle(), 0, 50);
+		$this->renderPage($content, $title);
 	}
 
 	public function showAllPosts(): void
@@ -48,7 +50,7 @@ class PostController extends AbstractController
 		require_once 'src/Templates/HomeContent.html';
 		$content = ob_get_clean();
 
-		$this->renderPage($content);
+		$this->renderPage($content, 'RBAB Tous les articles');
 	}
 
 	public function showAllPostsByCategory(int $categoryId): void
@@ -59,6 +61,10 @@ class PostController extends AbstractController
 		require_once 'src/Templates/HomeContent.html';
 		$content = ob_get_clean();
 
-		$this->renderPage($content);
+		$categoryRepository = new CategoryRepository();
+		$categoryName       = $categoryRepository->find($categoryId)->getName();
+
+		$title              = 'RBAB Articles : ' . $categoryName;
+		$this->renderPage($content, $title);
 	}
 }

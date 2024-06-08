@@ -1,0 +1,64 @@
+.home_page_back .comment-and-post-management {
+  margin: 10px;
+}
+.home_page_back .comment-and-post-management .post-management {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+.home_page_back .comment-and-post-management .post-management a {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.home_page_back .comment-and-post-management .post-management a:hover {
+  background-color: #4c5781;
+  border-color: whitesmoke;
+  color: whitesmoke;
+}
+.home_page_back .comment-and-post-management .comment-wrapper {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+  border: 1px solid;
+  padding: 10px;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-data {
+  flex-grow: 1;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-data span {
+  font-weight: bold;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-validation {
+  border-left: 1px solid;
+  display: flex;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-validation a {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-validation a:hover {
+  background-color: #4c5781;
+  border-color: whitesmoke;
+  color: whitesmoke;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-validation .valid-comment {
+  color: green;
+}
+.home_page_back .comment-and-post-management .comment-wrapper .comment-validation .reject-comment {
+  color: rgb(228, 72, 72);
+}
+@media (max-width: 768px) {
+  .home_page_back .comment-wrapper {
+    flex-direction: column;
+  }
+  .home_page_back .comment-wrapper .comment-validation {
+    height: 50px;
+    border-left: none !important;
+  }
+}/*# sourceMappingURL=homePageBack.css.map */

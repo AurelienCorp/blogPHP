@@ -20,9 +20,6 @@ abstract class Entity
 		$allProperties = ['properties' => [], 'values' => []];
 		foreach ($entityProps as $key => $value) {
 			$allProperties['properties'][] = $key;
-			if ($key === 'id') {
-				continue;
-			}
 			$allProperties['values'][$key] = $value;
 		}
 		$allProperties['tableName'] = $this->getDataBaseTableName();

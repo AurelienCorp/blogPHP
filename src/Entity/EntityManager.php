@@ -34,7 +34,9 @@ class EntityManager
 			$query = $dataBase->prepare($sqlQuery);
 
 			$this->formatRequest($request['values']);
-
+			if ($mode === 'insert') {
+				unset($request['values']['id']);
+			}
 			$query->execute($request['values']);
 		}
 
@@ -74,38 +76,31 @@ class EntityManager
 		}
 
 		if ($mode === 'insert') {
-			$columns = implode(', ', $request['properties']);
-
-			$values = 'NULL, ';
-			$i      = 0;
-			foreach ($request['properties'] as $property) {
+			$columns = [];
+			$values  = [];
+			foreach ($request['properties'] as $key => $property) {
 				if ($property === 'id') {
-					++$i;
-
 					continue;
 				}
-				if ($i < count($request['properties']) - 1) {
-					$values .= ':' . $property . ', ';
-				} else {
-					$values .= ':' . $property;
-				}
-				++$i;
+				$columns[] = $property;
+				$values[]  = ':' . $property;
 			}
-
-			$sqlQuery = "INSERT INTO {$request['tableName']} ($columns) VALUES ($values)";
+			$sqlColumns = implode(',', $columns);
+			$sqlValues  = implode(',', $values);
+			$sqlQuery   = "INSERT INTO {$request['tableName']} ($sqlColumns) VALUES ($sqlValues)";
 		} else {
-			$updatedColumn = '';
-			$i             = 0;
+			$updatedColumns = [];
+			$i              = 0;
 			foreach ($request['properties'] as $property) {
-				if ($i < count($request['properties']) - 1) {
-					$updatedColumn .= $property . '= :' . $property . ',';
-				} else {
-					$updatedColumn .= $property . '= :' . $property;
+				if ($property === 'id') {
+					continue;
 				}
+				$updatedColumns[] =  $property . '= :' . $property;
 				++$i;
 			}
+			$setClause = implode(',', $updatedColumns);
 
-			$sqlQuery = "UPDATE {$request['tableName']} SET $updatedColumn WHERE id = :id";
+			$sqlQuery = "UPDATE {$request['tableName']} SET $setClause WHERE id = :id";
 		}
 
 		return $sqlQuery;

@@ -17,8 +17,8 @@ class CommentEntity extends Entity
 
 	public function __construct()
 	{
-		$this->created_at =date('d-m-Y');
-		$this->updated_at =date('d-m-Y');
+		$this->created_at =date('Y-m-d');
+		$this->updated_at =date('Y-m-d');
 		$this->state      ='pending';
 	}
 

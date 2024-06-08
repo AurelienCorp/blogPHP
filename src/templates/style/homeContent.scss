@@ -10,7 +10,7 @@ h4 {
     justify-content: center;
 
     .article-cards {
-
+        width: 90%;
         max-width: 90%;
 
 
@@ -20,20 +20,8 @@ h4 {
 
             .card {
 
-                .img-and-button {
-                    position: relative;
-                    display: flex;
-                    justify-content: center;
-
-                    a {
-                        position: absolute;
-                        bottom: 1em;
-                    }
-
-                    img {
-                        max-width: 350px;
-                        height: auto;
-                    }
+                .go-to-post {
+                    margin: 1em;
                 }
 
                 .card-text {
