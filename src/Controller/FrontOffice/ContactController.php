@@ -32,8 +32,8 @@ class ContactController extends FrontOfficeController
 			}
 		}
 
-		$_SESSION['contact_error'] = [];
 		if (!empty($missingData)) {
+			$_SESSION['contact_error'] = [];
 			foreach ($mandatoryData as $property) {
 				$_SESSION['contact_error'][$property] = $_POST[$property];
 			}
@@ -78,7 +78,7 @@ class ContactController extends FrontOfficeController
 			$mail->Encoding = 'base64';
 			$mail->isHTML(true);
 			$mail->Subject = 'Demande de contact de ' . $_POST['recipient-firstName'] . ' ' . $_POST['recipient-lastName'];
-			$mail->Body    = $_POST['message-text'];
+			$mail->Body    = 'adresse mail de l\'expéditeur : ' . $_POST['recipient-email'] . '<br>' . $_POST['message-text'];
 			$mail->send();
 		} catch (Exception $e) {
 			echo "La demande de contact n'a pas pu être envoyée. Erreur d'envoit de mail: " . $e->getMessage();
