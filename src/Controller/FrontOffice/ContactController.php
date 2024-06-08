@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller\FrontOffice;
 
-use App\Repository\UserRepository;
-use Exception;
+use App\Entity\ContactFormEntity;
+use App\Entity\EntityManager;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class ContactController extends FrontOfficeController
 {
-	private readonly UserRepository $userRepository;
-	private readonly AuthenticationController $authenticationController;
-
 	public function __construct()
 	{
-		$this->userRepository           = new UserRepository();
-		$this->authenticationController = new AuthenticationController();
 		parent::__construct();
 	}
 
@@ -44,6 +42,48 @@ class ContactController extends FrontOfficeController
 			exit;
 		}
 
-		mail('a.demblans@hotmail.fr', 'My subject', 'coucou le mail');
+		$contactForm = new ContactFormEntity();
+		$contactForm->setEmail($_POST['recipient-email']);
+		$contactForm->setFirstName($_POST['recipient-firstName']);
+		$contactForm->setLastName($_POST['recipient-lastName']);
+		$contactForm->setMessage($_POST['message-text']);
+		$contactForm->setSendAt(date('Y-m-d'));
+
+		$em = new EntityManager();
+		$em->persist($contactForm);
+
+		$em->flush();
+
+		$debug = true;
+
+		try {
+			// Créer une instance de classe PHPMailer
+			$mail = new PHPMailer($debug);
+			if ($debug) {
+				// donne un journal détaillé
+				$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+			}
+			// Authentification via SMTP
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			// Connexion
+			$mail->Host       = 'smtp.gmail.com';
+			$mail->Port       = 587;
+			$mail->Username   = 'rubrik.a.brak.php@gmail.com';
+			$mail->Password   = $_ENV['MAILER_PASSWORD'];
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+			$mail->setFrom($_POST['recipient-email'], $_POST['recipient-firstName'] . ' ' . $_POST['recipient-lastName']);
+			$mail->addAddress('rubrik.a.brak.php@gmail.com', 'Rubrik A Brak');
+			$mail->CharSet  = 'UTF-8';
+			$mail->Encoding = 'base64';
+			$mail->isHTML(true);
+			$mail->Subject = 'Demande de contact de ' . $_POST['recipient-firstName'] . ' ' . $_POST['recipient-lastName'];
+			$mail->Body    = $_POST['message-text'];
+			$mail->send();
+		} catch (Exception $e) {
+			echo "La demande de contact n'a pas pu être envoyée. Erreur d'envoit de mail: " . $e->getMessage();
+		}
+
+		header('location: ' . $_SERVER['HTTP_REFERER'], true, 302);
 	}
 }
