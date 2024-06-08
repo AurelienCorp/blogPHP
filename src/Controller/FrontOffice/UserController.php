@@ -67,8 +67,8 @@ class UserController extends FrontOfficeController
 		$hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 		$user->setPassword($hashed_password);
 
-		$user->setfirstname($_POST['firstname']);
-		$user->setlastname($_POST['lastname']);
+		$user->setFirstname($_POST['firstname']);
+		$user->setLastname($_POST['lastname']);
 
 		$user->setRole('subscriber');
 

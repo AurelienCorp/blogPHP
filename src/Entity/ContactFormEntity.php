@@ -4,16 +4,15 @@ namespace App\Entity;
 
 use App\Entity\Abstracts\Entity;
 use App\Repository\ContactFormRepository;
-use DateTime;
 
 class ContactFormEntity extends Entity
 {
-	private ?int $id                     = null;
-	private ?string $email               = null;
-	private ?string $firstName           = null;
-	private ?string $lastName            = null;
-	private ?string $message             = null;
-	private null|string|DateTime $sendAt = null;
+	private ?int $id                      = null;
+	private ?string $email                = null;
+	private ?string $firstName            = null;
+	private ?string $lastName             = null;
+	private ?string $message              = null;
+	private null|string $send_at          = null;
 
 	public function getId(): ?int
 	{
@@ -68,14 +67,14 @@ class ContactFormEntity extends Entity
 		return $this;
 	}
 
-	public function getSendAt(): ?DateTime
+	public function getSendAt(): ?string
 	{
-		return $this->sendAt;
+		return $this->send_at;
 	}
 
-	public function setSendAt(DateTime $sendAt): self
+	public function setSendAt($send_at): self
 	{
-		$this->sendAt = $sendAt;
+		$this->send_at = $send_at;
 
 		return $this;
 	}
